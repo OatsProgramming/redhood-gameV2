@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, PointerEvent, useCallback } from 'react'
+import moveEvent from '@/lib/util/moveEvent'
 import styles from './interactBtns.module.css'
 import btns from './btnList'
 
@@ -12,22 +13,16 @@ export default function InteractBtns() {
     // Note to self: (bug)
     // When using on-screen btns, user has the ability to phase thru objects
     // After usage, user still has ability with keyboard btns (fix when possible)
-    const handleMovement = useCallback(function (e: PointerEvent<HTMLButtonElement>) {
+    const handleMovement = useCallback(function (e: PointerEvent<HTMLButtonElement>, keyName: string) {
         e.preventDefault()
         const btn = e.currentTarget as HTMLButtonElement
 
         // Initial dispatch
         const firstTimerId = setTimeout(function tick() {
-            btn.dispatchEvent(new KeyboardEvent('keydown', {
-                key: btn.className,
-                shiftKey: isRunning,
-                bubbles: true,
-                code: btn.className === 'KeyQ' ? btn.className : '',
-                repeat: true,
-            }));
+            btn.dispatchEvent(moveEvent(isRunning, keyName));
 
             // Prevent constantly "opening" dialog (otherwise cause errors)
-            if (btn.className === 'KeyQ') return
+            if (keyName === 'KeyQ') return
 
             // Loop (user holds on button)
             const secondTimerId = setTimeout(tick, 100)
@@ -36,7 +31,7 @@ export default function InteractBtns() {
         setFirstTimer(firstTimerId)
     }, [isRunning])
 
-    const StopTimer = useCallback(function (e: PointerEvent<HTMLButtonElement>) {
+    const StopTimer = useCallback(function (e: PointerEvent<HTMLButtonElement>, keyName: string) {
         const btn = e.currentTarget as HTMLButtonElement
 
         // Turn off loop
@@ -44,19 +39,18 @@ export default function InteractBtns() {
         if (secondTimer) clearTimeout(secondTimer)
 
         // Set animation back to stand
-        btn.dispatchEvent(new KeyboardEvent('keyup', {
-            key: btn.className,
-            shiftKey: isRunning,
-            bubbles: true,
-            code: btn.className === 'KeyQ' ? btn.className : '',
-            repeat: true,
-        }));
+        btn.dispatchEvent(moveEvent(isRunning, keyName, true));
     }, [firstTimer, secondTimer])
 
     return (
         <div className={styles['interactBtns']}>
             {btns.map(btn => (
-                <button key={btn.className} className={styles[btn.className]} onPointerDown={handleMovement} onPointerUp={StopTimer}>
+                <button 
+                    key={btn.keyName} 
+                    className={styles[btn.keyName]} 
+                    onPointerDown={(e) => handleMovement(e, btn.keyName)} 
+                    onPointerUp={(e) => StopTimer(e, btn.keyName)}
+                >
                     {btn.svg}
                 </button>
             ))}
