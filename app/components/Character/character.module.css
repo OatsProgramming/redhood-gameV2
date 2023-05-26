@@ -1,0 +1,99 @@
+/* -215px per frame when animating */
+/* steps = frames.length - 1 */
+/* animationCycle = realCycle - cycleOffset (due to sizing issues) */
+
+.charBox {
+  --buffer: 6px;
+  --frameGap: -215px;
+  --cycleOffset: -0.06;
+  overflow: hidden;
+  width: 130px;
+  height: 205px;
+  position: fixed;
+  scale: 0.7;
+  transition: left var(--duration) ease, top var(--duration) ease;
+  filter: drop-shadow(0px 30px 40px #000);
+  /* border: 5px solid green; */
+}
+
+.charBox>img {
+  position: absolute;
+}
+
+.turnLeft {
+  transform: scaleX(-1);
+}
+
+.stand {
+  --animationCycle: calc(1 + var(--cycleOffset));
+  translate: 0 -0.6px;
+  animation: stand 3s steps(1) infinite;
+}
+
+.jump {
+  --animationCycle: calc(5 + var(--cycleOffset));
+  translate: calc(var(--frameGap) * 0) calc(var(--frameGap) * var(--animationCycle));
+  animation: jump 1s steps(7) 1;
+}
+
+.walk {
+  --animationCycle: calc(2 + var(--cycleOffset));
+  translate: 0 calc(var(--frameGap) * var(--animationCycle));
+  animation: walk 1s steps(3) infinite;
+}
+
+.run {
+  --animationCycle: calc(3 + var(--cycleOffset));
+  translate: 0 calc(var(--frameGap) * var(--animationCycle));
+  animation: run 1s steps(7) infinite;
+}
+
+/* translate: 
+  (x) LAST_FRAME        --> (frameGap * lastFrameIndex) + buffer
+  (y) ANIMATION_CYCLE   --> Not rounded to whole number; exact sprite measurements unknown
+  */
+
+@keyframes run {
+  to {
+    translate: calc(calc(var(--frameGap) * 7.06) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
+  }
+}
+
+@keyframes walk {
+  to {
+    translate: calc(calc(var(--frameGap) * 3) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
+  }
+}
+
+@keyframes jump {
+  to {
+    translate: calc(calc(var(--frameGap) * 7.06) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
+  }
+}
+
+@keyframes stand {
+
+  /* initial */
+  0%,
+  28.6%,
+  85.7% {
+    translate: 0 15px
+  }
+
+  /* legs bend down */
+  14.3%,
+  42.9%,
+  100% {
+    translate: var(--frameGap) 15px
+  }
+
+  /* eyes start to close */
+  57.1% {
+    translate: 0 calc(var(--frameGap) * var(--animationCycle))
+  }
+
+  /* eyes closed */
+  71.4% {
+    translate: var(--frameGap) calc(var(--frameGap) * var(--animationCycle))
+  }
+}

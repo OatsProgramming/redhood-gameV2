@@ -1,0 +1,53 @@
+.interactBtns {
+    position: fixed;
+    display: grid;
+    z-index: 100;
+    grid-template-areas: 
+        "KeyQ up run"
+        "left down right"
+    ;
+    bottom: 5vh;
+    right: 5vw;
+}
+
+.interactBtns > button {
+    width: clamp(65px, 10vw, 100px);
+    opacity: 0.5;
+    touch-action: none;
+}
+
+.interactBtns > button:hover {
+    opacity: 1;
+}
+
+.interactBtns > button > img {
+    filter: invert(1)
+}
+
+.interactBtns > button > svg {
+    width: 100%;
+}
+
+.KeyQ {
+    grid-area: KeyQ;
+}
+
+.ArrowUp {
+    grid-area: up;
+}
+
+.ArrowDown {
+    grid-area: down;
+}
+
+.ArrowLeft {
+    grid-area: left;
+}
+
+.ArrowRight {
+    grid-area: right;
+}
+
+.run {
+    grid-area: run;
+}

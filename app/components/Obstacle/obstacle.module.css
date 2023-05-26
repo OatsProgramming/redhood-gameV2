@@ -1,0 +1,37 @@
+/* Don't mess with width or height: treat all objects present in window as paper cutouts */
+/* Change via scale */
+.container {
+    position: fixed;
+    /* border: 5px solid green; */
+    width: 100px;
+    height: 10px;
+}
+
+.obstacle {
+    width: 100%;
+    translate: 0px -90px;
+    position: absolute;
+    /* border: 5px solid red; */
+    display: block;
+}
+
+.shadow {
+    position: relative;
+    background-color: hsl(0, 0%, 0%);
+    width: 100px;
+    -webkit-box-shadow: 0px 0px 9px 7px hsla(0, 0%, 0%, 0.75);
+    -moz-box-shadow: 0px 0px 9px 7px hsla(0, 0%, 0%, 0.75);
+    box-shadow: 0px 0px 9px 7px hsla(0, 0%, 0%, 0.75);
+    translate: 0 7px;
+}
+
+.textBubble {
+    position: absolute;
+    top: -170px;
+    left: -10px;
+    scale: 1.5;
+}
+
+.none {
+    display: none;
+}

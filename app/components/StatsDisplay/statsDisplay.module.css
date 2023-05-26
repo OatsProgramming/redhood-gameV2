@@ -1,0 +1,32 @@
+.stats {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.908);
+    font-size: small;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.debuffs {
+    display: flex;
+    gap: 1rem;
+    padding-left: 1rem;
+    filter: drop-shadow(0px 0px 10px #fbfbfb);
+}
+
+.hp {
+    transition: width 200ms ease;
+    top: 0;
+    left: 0;
+    width: var(--hpPercentage);
+    background-color: rgba(255, 0, 0, 0.62);
+    height: 5vw;
+    max-height: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+}

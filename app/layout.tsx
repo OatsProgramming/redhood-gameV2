@@ -1,4 +1,7 @@
 import './globals.css'
+import localFont from 'next/font/local'
+
+const pixelText = localFont({ src: '../assets/fonts/pixelText.ttf' });
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={pixelText.className}>
+        {children}
+      </body>
     </html>
   )
 }

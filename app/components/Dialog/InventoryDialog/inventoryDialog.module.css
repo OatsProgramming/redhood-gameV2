@@ -1,0 +1,88 @@
+.inventoryDialog {
+    width: 80vw;
+    max-width: 750px;
+    aspect-ratio: 1920 / 1864;
+    background-image: url('https://i.imgur.com/IlyKRo4.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    overflow: hidden;    
+}
+
+.inventoryDialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.icons {
+    position: absolute;
+    display: flex;
+    gap: 1rem;
+    top: 1%;
+    left: 10%;
+    /* border: 5px solid green; */
+}
+
+
+.icons > img {
+    width: 5vw;
+    max-width: 47px;
+    transition: scale 200ms ease
+}
+
+.icons > img:hover {
+    scale: 1.5;
+    filter: drop-shadow(0 0 10px #000);
+}
+
+.card {
+    width: 100px;
+    filter: drop-shadow(0 0 10px #000);
+}
+
+.items {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+    row-gap: 5rem;
+    /* border: 5px solid green; */
+    width: 88%;
+    height: 91%;
+    top: 7.5%;
+    left: 7%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.empty {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    width: 100%;
+}
+
+.empty > img {
+    width: 25%;
+    filter: invert(1);
+    opacity: 50%;
+}
+
+.coins {
+    position: absolute;
+    top: min(1vw, 15px);
+    right: 10%;
+    color: rgb(213, 216, 38);
+    font-weight: bold;
+    font-family: pixelText, sans-serif;
+    font-size: small;
+}
+
+@media (min-width: 720px) {
+    .coins {
+        font-size: 1.25rem;
+    }
+}

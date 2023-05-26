@@ -1,6 +1,6 @@
 {
   "name": "redhood-game",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,11 +10,19 @@
   },
   "dependencies": {
     "@types/node": "20.2.4",
-    "@types/react": "18.2.7",
-    "@types/react-dom": "18.2.4",
+    "line-intersect": "^3.0.0",
+    "lodash": "^4.17.21",
+    "lottie-react": "^2.4.0",
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.4"
+    "zustand": "^4.3.8"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.194",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "typescript": "^5.0.4"
   }
 }
