@@ -10,13 +10,18 @@
 }
 
 .debuffs {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 1rem;
     padding-left: 1rem;
+    -webkit-filter: drop-shadow(0px 0px 10px #fbfbfb);
     filter: drop-shadow(0px 0px 10px #fbfbfb);
 }
 
 .hp {
+    -webkit-transition: width 200ms ease;
+    -o-transition: width 200ms ease;
     transition: width 200ms ease;
     top: 0;
     left: 0;
@@ -26,7 +31,11 @@
     max-height: 50px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding-left: 1rem;
 }

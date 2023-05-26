@@ -1,9 +1,16 @@
 .itemCard {
     list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     width: 25vw;
     height: 25vw;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     background-position: center;
     background-size: cover;
@@ -13,11 +20,13 @@
     text-align: center;
     max-width: 200px;
     max-height: 200px;
+    -webkit-transition: width 200ms ease;
+    -o-transition: width 200ms ease;
     transition: width 200ms ease;
 }
 
-.itemCard > img {
-   width: 45%;
+.itemCard>img {
+    width: 45%;
 }
 
 @media (max-width: 640px) {
@@ -25,7 +34,8 @@
         width: 150px;
         height: 150px
     }
-    .itemCard > img {
+
+    .itemCard>img {
         width: 33%
     }
 }

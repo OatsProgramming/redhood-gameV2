@@ -17,10 +17,10 @@ export default function ItemsDialog({ items, isCharNear }: {
     const [itemList, setItemList] = useState(items)
     const { inventory } = useInventory()
     const { isSelling, setIsSelling } = useCardType()
-    
+
     useEffect(() => {
         if (isSelling) {
-            setItemList(() => 
+            setItemList(() =>
                 inventory.filter(inventoryItem => inventoryItem.category === items[0].category)
             )
         }
@@ -43,8 +43,13 @@ export default function ItemsDialog({ items, isCharNear }: {
 
     return (
         <dialog ref={dialogRef} className={styles['itemsDialog']}>
-            <div onPointerDown={() => setIsSelling(!isSelling)}>
-                {isSelling ? 'Buy items' : 'Sell items'}
+            <div>
+                <button className={styles['closeBtn']} onClick={() => toggleDialog(dialogRef, character, setCharacter)}>
+                    [X] Close
+                </button>
+                <button onPointerDown={() => setIsSelling(!isSelling)}>
+                    {isSelling ? 'Buy items ->' : 'Sell items ->'}
+                </button>
             </div>
             <ul>
                 {itemList.map(item => (
@@ -56,9 +61,6 @@ export default function ItemsDialog({ items, isCharNear }: {
                     />
                 ))}
             </ul>
-            <button className={styles['closeBtn']} onClick={() => toggleDialog(dialogRef, character, setCharacter)}>
-                Close
-            </button>
         </dialog>
     )
 }

@@ -7,25 +7,45 @@
     position: relative;
 }
 
+.itemsDialog::-webkit-backdrop {
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
 .itemsDialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5)
 }
 
+.itemsDialog>div {
+    font-size: large;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
 /* Brute force for centering (itll do for now) */
-.itemsDialog > ul {
+.itemsDialog>ul {
     position: relative;
     left: -1.5%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 1rem;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
 
 @media (max-width: 640px) {
-    .itemsDialog > ul > li {
+    .itemsDialog>ul>li {
         scale: 0.9
     }
-    .itemsDialog > ul {
+
+    .itemsDialog>ul {
         left: -3%;
     }
 }

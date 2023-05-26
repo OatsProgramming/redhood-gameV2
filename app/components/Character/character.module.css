@@ -11,7 +11,10 @@
   height: 205px;
   position: fixed;
   scale: 0.7;
+  -webkit-transition: left var(--duration) ease, top var(--duration) ease;
+  -o-transition: left var(--duration) ease, top var(--duration) ease;
   transition: left var(--duration) ease, top var(--duration) ease;
+  -webkit-filter: drop-shadow(0px 30px 40px #000);
   filter: drop-shadow(0px 30px 40px #000);
   /* border: 5px solid green; */
 }
@@ -21,30 +24,36 @@
 }
 
 .turnLeft {
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
 
 .stand {
   --animationCycle: calc(1 + var(--cycleOffset));
   translate: 0 -0.6px;
+  -webkit-animation: stand 3s steps(1) infinite;
   animation: stand 3s steps(1) infinite;
 }
 
 .jump {
   --animationCycle: calc(5 + var(--cycleOffset));
   translate: calc(var(--frameGap) * 0) calc(var(--frameGap) * var(--animationCycle));
+  -webkit-animation: jump 1s steps(7) 1;
   animation: jump 1s steps(7) 1;
 }
 
 .walk {
   --animationCycle: calc(2 + var(--cycleOffset));
   translate: 0 calc(var(--frameGap) * var(--animationCycle));
+  -webkit-animation: walk 1s steps(3) infinite;
   animation: walk 1s steps(3) infinite;
 }
 
 .run {
   --animationCycle: calc(3 + var(--cycleOffset));
   translate: 0 calc(var(--frameGap) * var(--animationCycle));
+  -webkit-animation: run 1s steps(7) infinite;
   animation: run 1s steps(7) infinite;
 }
 
@@ -53,9 +62,21 @@
   (y) ANIMATION_CYCLE   --> Not rounded to whole number; exact sprite measurements unknown
   */
 
+@-webkit-keyframes run {
+  to {
+    translate: calc(calc(var(--frameGap) * 7.06) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
+  }
+}
+
 @keyframes run {
   to {
     translate: calc(calc(var(--frameGap) * 7.06) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
+  }
+}
+
+@-webkit-keyframes walk {
+  to {
+    translate: calc(calc(var(--frameGap) * 3) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
   }
 }
 
@@ -65,9 +86,42 @@
   }
 }
 
+@-webkit-keyframes jump {
+  to {
+    translate: calc(calc(var(--frameGap) * 7.06) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
+  }
+}
+
 @keyframes jump {
   to {
     translate: calc(calc(var(--frameGap) * 7.06) + var(--buffer)) calc(var(--frameGap) * var(--animationCycle));
+  }
+}
+
+@-webkit-keyframes stand {
+
+  /* initial */
+  0%,
+  28.6%,
+  85.7% {
+    translate: 0 15px
+  }
+
+  /* legs bend down */
+  14.3%,
+  42.9%,
+  100% {
+    translate: var(--frameGap) 15px
+  }
+
+  /* eyes start to close */
+  57.1% {
+    translate: 0 calc(var(--frameGap) * var(--animationCycle))
+  }
+
+  /* eyes closed */
+  71.4% {
+    translate: var(--frameGap) calc(var(--frameGap) * var(--animationCycle))
   }
 }
 
