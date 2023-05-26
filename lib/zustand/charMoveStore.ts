@@ -145,8 +145,8 @@ const useCharMove = create<CharMoveState & CharMoveAction>()((set, get) => ({
 
         // Determine which way the character should face
         const direction = currentPos.x - newPos.x
-        if (direction > 0) div.classList.add('turnLeft')
-        else div.classList.remove('turnLeft')
+        if (direction > 0) div.style.transform = 'scaleX(-1)'
+        else div.style.transform = 'scaleX(1)'
 
         // Start transition
         set({ animation: 'run', move: newPos, isGoing: true })
