@@ -39,7 +39,7 @@ body {
 
 @media (max-width: 720px) {
   body {
-    font-size: small;
+    font-size: medium;
   }
 }
 

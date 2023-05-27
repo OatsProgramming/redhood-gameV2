@@ -32,14 +32,14 @@ function itemCard({ item, squareImg, rectImg }: {
                 <p>{item.name}</p>
                 {
                     inInventory || isSelling ?
-                    <p>Currently: {(item as InventoryItem).amnt || 0}</p> 
-                    : <p>Cost: {item.price}</p>
+                        <p>Currently: {(item as InventoryItem).amnt || 0}</p>
+                        : <p>Cost: {item.price}</p>
                 }
             </div>
-            <DetailsDialog 
-                item={item} 
-                rectImg={rectImg} 
-                inInventory={inInventory} 
+            <DetailsDialog
+                item={item}
+                rectImg={rectImg}
+                inInventory={inInventory}
                 isSelling={isSelling}
             />
         </li>
