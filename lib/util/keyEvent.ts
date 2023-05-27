@@ -7,14 +7,15 @@
  * @param keyUp 
  * @returns 
  */
-export default function moveEvent(isRunning: boolean, keyName: string, keyUp?: true){
+export default function keyEvent(keyName: string, keyUp?: true, isRunning?: boolean,){
     let eventName = 'keydown'
     if (keyUp) eventName = 'keyup'
+
     return new KeyboardEvent(eventName, {
         key: keyName,
         shiftKey: isRunning,
         bubbles: true,
-        code: keyName === 'KeyQ' ? keyName : '',
+        code: keyName.includes('Key') ? keyName : '',
         repeat: true,
     })
 }
