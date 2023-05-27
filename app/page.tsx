@@ -7,6 +7,9 @@ import Obstacle from "./components/Obstacle/Obstactle";
 import food from "@/lib/inGameObjs/food";
 import StatsDisplay from "./components/StatsDisplay/StatsDisplay";
 import obstacleUrls from "@/lib/inGameObjs/obstactleUrls";
+import equipments from "@/lib/inGameObjs/equipments";
+import materials from "@/lib/inGameObjs/materials";
+import potions from "@/lib/inGameObjs/potions";
 
 const InventoryDialog = lazy(() =>
   import('./components/Dialog/InventoryDialog/InventoryDialog')
@@ -15,26 +18,64 @@ const InventoryDialog = lazy(() =>
 export default function App() {
   return (
     <>
-      <InteractBtns />
+      {/* <InteractBtns /> */}
       <Character />
       <Obstacle
         isInteractive
         items={food}
+        image={obstacleUrls.stall}
+        style={{
+          top: '40vh',
+          left: '50vw',
+          scale: '1'
+        }}
+      />
+      <Obstacle
+        isInteractive
+        items={equipments}
         image='/woodenCart.PNG'
         style={{
           top: '40vh',
-          left: '25vw',
+          left: '30vw',
+          scale: '1'
+        }}
+      />
+      <Obstacle
+        isInteractive
+        items={potions}
+        image='/woodenCart.PNG'
+        style={{
+          top: '40vh',
+          left: '10vw',
           scale: '1'
         }}
       />
       <Obstacle
         image={obstacleUrls.bush}
         style={{
-          top: '30vh',
+          top: '60vh',
           left: '10vw',
           scale: '1'
         }}
       />
+      {/* <Obstacle
+        isInteractive
+        image={obstacleUrls.bush}
+        style={{
+          top: '85vh',
+          left: '20vw',
+          scale: '1'
+        }}
+      /> */}
+      {/* <Obstacle
+        isInteractive
+        image={obstacleUrls.smithShop}
+        style={{
+          top: '50vh',
+          left: '20vw',
+          scale: '5'
+        }}
+      /> */}
       <InventoryDialog />
       <StatsDisplay />
     </>

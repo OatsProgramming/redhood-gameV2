@@ -5,7 +5,7 @@ const potions: Item[] = [
         imgUrl: 'https://i.imgur.com/PpkpgQh.png',
         price: 100,
         category: 'ingestible',
-        addHP: 100
+        addHP: 999
     },
     {
         name: 'Large potion',
@@ -21,7 +21,7 @@ const potions: Item[] = [
         imgUrl: 'https://i.imgur.com/mxlZ11Q.png',
         price: 25,
         category: 'ingestible',
-        addHP: 999
+        addHP: 25
     },
     {
         name: 'Small potion',
@@ -29,7 +29,7 @@ const potions: Item[] = [
         imgUrl: 'https://i.imgur.com/893bbmD.png',
         price: 10,
         category: 'ingestible',
-        addHP: 999
+        addHP: 10
     },
 ]
 

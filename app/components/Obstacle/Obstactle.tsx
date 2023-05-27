@@ -74,16 +74,10 @@ const Obstacle = memo(function ({ image, style, items, isInteractive }: {
         const charRect = char.getBoundingClientRect()
 
         // For 3D effect
-        // Behind char
-        if (charRect.bottom > obsRect.bottom) {
-            char.style.zIndex = '1'
-            obs.style.zIndex = '0'
-        }
+        // Behind char (charZIndex === 1)
+        if (charRect.bottom > obsRect.bottom) obs.style.zIndex = '0'
         // In front of char
-        else {
-            char.style.zIndex = '0'
-            obs.style.zIndex = '1'
-        }
+        else  obs.style.zIndex = '2'
 
         // Any further exec not necessary if cant interact with obstacle
         if (!isInteractive) return
@@ -95,11 +89,11 @@ const Obstacle = memo(function ({ image, style, items, isInteractive }: {
         let isNearY: boolean;
         switch (sideX) {
             case 'left': {
-                isNearX = (charRect.right > obsRect.left - buffer)
+                isNearX = (charRect.right > obsRect.left)
                 break;
             }
             case 'right': {
-                isNearX = (charRect.left < obsRect.right + buffer)
+                isNearX = (charRect.left < obsRect.right)
                 break;
             }
             default: {
@@ -110,7 +104,7 @@ const Obstacle = memo(function ({ image, style, items, isInteractive }: {
         }
         switch (sideY) {
             case 'top': {
-                isNearY = (charRect.bottom > obsRect.top - buffer)
+                isNearY = (charRect.bottom > obsRect.top - buffer - 50)
                 break;
             }
             case 'bottom': {
@@ -150,8 +144,20 @@ const Obstacle = memo(function ({ image, style, items, isInteractive }: {
 
     return (
         <div className={styles['container']} ref={obsRef} style={style}>
-            <div className={styles['shadow']} />
-            {isInteractive && (
+            
+            {items && (
+                <ItemsDialog
+                    items={items}
+                    isCharNear={isCharNear}
+                />
+            )}
+            <div className={styles['shadow']}>
+                <img
+                    ref={obsImgRef}
+                    className={styles['obstacle']}
+                    src={image}
+                />
+                {isInteractive && (
                 <Lottie
                     className={styles[lottieClass]}
                     lottieRef={lottieRef}
@@ -163,17 +169,7 @@ const Obstacle = memo(function ({ image, style, items, isInteractive }: {
                     onComplete={() => !isCharNear && setLottieClass('none')}
                 />
             )}
-            {items && (
-                <ItemsDialog
-                    items={items}
-                    isCharNear={isCharNear}
-                />
-            )}
-            <img
-                ref={obsImgRef}
-                className={styles['obstacle']}
-                src={image}
-            />
+            </div>
         </div>
     )
 }, (prevProps, nextProps) => {
