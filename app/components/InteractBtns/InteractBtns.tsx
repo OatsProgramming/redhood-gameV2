@@ -7,6 +7,7 @@ import btns from './btnList'
 import Image from 'next/image'
 import eye from '@/public/eye.svg'
 import eyeSlash from '@/public/eyeSlash.svg'
+import TutorialDialog from '../Dialog/TutorialDialog/TutorialDialog'
 
 export default function InteractBtns() {
     const [isRunning, setIsRunning] = useState(false)
@@ -50,13 +51,6 @@ export default function InteractBtns() {
         <>
             <div className={styles['interactBtns']}>
                 <div className={styles['container']}>
-                    <button onPointerDown={(e) => e.target.dispatchEvent(keyEvent('KeyE', undefined))}>
-                        <img
-                            loading='lazy'
-                            src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Backpack_%282551%29_-_The_Noun_Project.svg/1024px-Backpack_%282551%29_-_The_Noun_Project.svg.png?20180307034244'
-                            alt='backpack'
-                        />
-                    </button>
                     <button className={styles['visibleBtn']} onPointerDown={() => setIsVisible(!isVisible)}>
                         <Image
                             src={isVisible ? eye : eyeSlash}
@@ -64,6 +58,14 @@ export default function InteractBtns() {
                             width={50}
                         />
                     </button>
+                    <button onPointerDown={(e) => e.target.dispatchEvent(keyEvent('KeyE', undefined))}>
+                        <img
+                            loading='lazy'
+                            src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Backpack_%282551%29_-_The_Noun_Project.svg/1024px-Backpack_%282551%29_-_The_Noun_Project.svg.png?20180307034244'
+                            alt='backpack'
+                        />
+                    </button>
+                    <TutorialDialog />
                 </div>
                 {isVisible && (
                     <>

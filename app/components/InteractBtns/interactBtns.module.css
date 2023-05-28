@@ -58,28 +58,24 @@
 
 .container {
     position: fixed;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     right: 1vw;
     bottom: 30vh;
     background-color: transparent;
-    flex-direction: column-reverse;
+    flex-direction: column;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
 }
 
-.container button {
+.container > button {
     background: transparent;
     transition: all 200ms ease;
     max-width: 80px;
+    border: none;
 }
 
 .container img {
     /* filter: invert(1); */
     width: 100%;
-}
-
-.container button:hover,
-.container button:focus {
-    outline: none;
-    border: 0;
 }
