@@ -22,3 +22,6 @@
 
 [TakWolf](https://github.com/TakWolf)
 - Pixel Fonts [🔗](https://retro-pixel-font.takwolf.com/)
+
+[Markvelyx](https://markvelyx.itch.io/)
+- Random Pixelated Stall Assets [🔗](https://markvelyx.itch.io/random-stall-assets)
