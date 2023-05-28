@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef } from "react";
 import book from 'public/book.svg'
 import Image from "next/image";

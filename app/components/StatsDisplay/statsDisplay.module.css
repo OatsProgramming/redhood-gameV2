@@ -7,6 +7,7 @@
     font-size: x-large;
     display: grid;
     gap: 0.5rem;
+    z-index: 999;
 }
 
 .debuffs {

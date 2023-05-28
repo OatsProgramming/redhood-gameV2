@@ -1,9 +1,9 @@
 'use client'
 
-import { lazy, memo } from 'react'
+import { Suspense, lazy, memo } from 'react'
 import styles from './itemCard.module.css'
 import cacheInventoryItem, { itemCache } from '@/lib/util/cacheInventoryItem'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash/isEqual'
 import useCardType from '@/lib/zustand/cardTypeStore'
 
 const DetailsDialog = lazy(() =>
@@ -25,7 +25,9 @@ function itemCard({ item, squareImg, rectImg }: {
             backgroundImage: `url(${squareImg})`
         }}>
             <img
+                loading='lazy'
                 src={item.imgUrl}
+                alt={item.name}
                 width={100}
             />
             <div className={styles['info']}>
@@ -36,12 +38,14 @@ function itemCard({ item, squareImg, rectImg }: {
                         : <p>Cost: {item.price}</p>
                 }
             </div>
-            <DetailsDialog
-                item={item}
-                rectImg={rectImg}
-                inInventory={inInventory}
-                isSelling={isSelling}
-            />
+            <Suspense fallback={<div>{item.name}</div>}>
+                <DetailsDialog
+                    item={item}
+                    rectImg={rectImg}
+                    inInventory={inInventory}
+                    isSelling={isSelling}
+                />
+            </Suspense>
         </li>
     )
 }
