@@ -61,7 +61,7 @@ export default function App() {
       <Obstacle
         image={'https://i.imgur.com/9ee7fKN.png'}
         style={{
-          top: '60vh',
+          top: '20vh',
           left: '50vw',
           scale: '3',
         }}
