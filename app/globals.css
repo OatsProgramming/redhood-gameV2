@@ -81,11 +81,13 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  font-size: 2rem;
 }
 
 .splide__arrow {
   background-color: transparent;
   border: none;
+  color: black;
 }
 
 .splide__pagination button {
