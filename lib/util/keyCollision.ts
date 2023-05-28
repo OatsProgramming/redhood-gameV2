@@ -20,8 +20,8 @@ export default function keyCollision(charStore: CharMoveState & CharMoveAction, 
     // Collision detection
     if (!(
         charRect.left < obsRect.right + rangeBuffer &&
-        charRect.right > obsRect.left - rangeBuffer - 10 &&
-        charRect.bottom < obsRect.bottom + rangeBuffer + 10 &&
+        charRect.right > obsRect.left - rangeBuffer &&
+        charRect.bottom < obsRect.bottom + rangeBuffer &&
         charRect.bottom > obsRect.top - rangeBuffer
     )) return
 

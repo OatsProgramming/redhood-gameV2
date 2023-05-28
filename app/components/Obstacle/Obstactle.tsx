@@ -17,19 +17,27 @@ const Lottie = lazy(() =>
     import('lottie-react')
 )
 
-const Obstacle = memo(function ({ image, style, items, isInteractive }: {
+const Obstacle = memo(function ({ image, style, items, isInteractive, hitBoxStyle }: {
     image: string,
     items?: Item[],
     isInteractive?: true,
-    // Don't mess with width or height: treat all objects present in window as paper cutouts
-    // Use scale only for resizing; otherwise, will affect the collision borders
+    /**
+     * Don't mess with width or height: treat all objects present in window as paper cutouts.
+     * Use scale only for resizing; otherwise, will affect the collision borders.
+     */
     style: RequiredStyles & Omit<CSSProperties, 'height' | 'width'>
+    /**
+     * Width & height should be given as numbers for percentages. All others can be given in any unit.
+     */
+    hitBoxStyle?: HitBoxStyle
 }) {
     const charStore = useCharMove()
 
     const obsRef = useRef<HTMLDivElement>(null)
     const obsImgRef = useRef<HTMLImageElement>(null)
     const lottieRef = useRef<LottieRefCurrentProps>(null)
+
+    const containerRef = useRef<HTMLDivElement>(null)
 
     const [isCharNear, setIsCharNear] = useState(false)
     // Can't directly use .style for some reason (readonly)
@@ -68,16 +76,18 @@ const Obstacle = memo(function ({ image, style, items, isInteractive }: {
     useEffect(() => {
         const obs = obsRef.current
         const char = charStore.character
-        if (!char || !obs) return
+        const container = containerRef.current
+
+        if (!char || !obs || !container) return
 
         const obsRect = obs.getBoundingClientRect()
         const charRect = char.getBoundingClientRect()
 
         // For 3D effect
         // Behind char (charZIndex === 1)
-        if (charRect.bottom > obsRect.bottom) obs.style.zIndex = '0'
+        if (charRect.bottom > obsRect.bottom) container.style.zIndex = '0'
         // In front of char
-        else  obs.style.zIndex = '2'
+        else  container.style.zIndex = '2'
 
         // Any further exec not necessary if cant interact with obstacle
         if (!isInteractive) return
@@ -143,8 +153,8 @@ const Obstacle = memo(function ({ image, style, items, isInteractive }: {
     }, [isCharNear])
 
     return (
-        <div className={styles['container']} ref={obsRef} style={style}>
-            
+        <div className={styles['container']} ref={containerRef} style={style}>
+            <div className={styles['hitBox']} ref={obsRef} style={hitBoxStyle}/>
             {items && (
                 <ItemsDialog
                     items={items}

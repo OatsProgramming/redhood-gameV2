@@ -2,15 +2,22 @@
 /* Change via scale */
 .container {
     position: fixed;
-    /* border: 5px solid green; */
+    /* border: 5px solid red; */
     width: 100px;
     height: 10px;
 }
 
+.hitBox {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    /* border: 5px solid yellow; */
+}
+
 .shadow {
-    position: fixed;
+    position: relative;
     background-color: hsl(0, 0%, 0%);
-    width: 100px;
+    width: 100%;
     -webkit-box-shadow: 0px 0px 9px 7px hsla(0, 0%, 0%, 0.75);
     box-shadow: 0px 0px 9px 7px hsla(0, 0%, 0%, 0.75);
     /* border: 5px solid green; */

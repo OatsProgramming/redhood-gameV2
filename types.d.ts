@@ -37,6 +37,15 @@ type RequiredStyles = Record<ReqCSS, string | number> & {
     scale?: string
 }
 
+type HitBoxStyle = {
+    width?: number,
+    height?: number,
+    top?: string,
+    bottom?: string,
+    left?: string,
+    right?: string,
+}
+
 type Category = 'ingestible' | 'equipment' | 'material' | 'quest'
 
 type CategoryImg = {

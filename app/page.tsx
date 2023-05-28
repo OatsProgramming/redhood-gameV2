@@ -58,6 +58,18 @@ export default function App() {
           scale: '1'
         }}
       />
+      <Obstacle
+        image={'https://i.imgur.com/9ee7fKN.png'}
+        style={{
+          top: '60vh',
+          left: '50vw',
+          scale: '3',
+        }}
+        hitBoxStyle={{
+          width: 30,
+          left: '-3px'
+        }}
+      />
       <InventoryDialog />
       <StatsDisplay />
     </>
