@@ -11,10 +11,10 @@ import '@splidejs/react-splide/css/core';
 export default function TutorialDialog() {
     const dialogRef = useRef<HTMLDialogElement>(null)
     const { character, setCharacter } = useCharMove()
-    
+
     useEffect(() => {
-        toggleDialog(dialogRef, character, setCharacter)
-    }, [])
+        if (character && dialogRef.current) toggleDialog(dialogRef, character, setCharacter)
+    }, [dialogRef.current])
 
     return (
         <>
@@ -48,18 +48,8 @@ export default function TutorialDialog() {
                         ))}
                     </SplideTrack>
                     <div className="splide__arrows">
-                        <button className="splide__arrow splide__arrow--prev">
-                            &lt;
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                            </svg> */}
-                        </button>
-                        <button className="splide__arrow splide__arrow--next">
-                            &gt;
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                            </svg> */}
-                        </button>
+                        <button className="splide__arrow splide__arrow--prev">&lt;</button>
+                        <button className="splide__arrow splide__arrow--next">&gt;</button>
                     </div>
                 </Splide>
                 <span onPointerDown={() => toggleDialog(dialogRef, character, setCharacter)}>
