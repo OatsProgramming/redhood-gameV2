@@ -18,7 +18,7 @@ const InventoryDialog = lazy(() =>
 export default function App() {
   return (
     <>
-      {/* <InteractBtns /> */}
+      <InteractBtns />
       <Character />
       <Obstacle
         isInteractive
@@ -58,24 +58,6 @@ export default function App() {
           scale: '1'
         }}
       />
-      {/* <Obstacle
-        isInteractive
-        image={obstacleUrls.bush}
-        style={{
-          top: '85vh',
-          left: '20vw',
-          scale: '1'
-        }}
-      /> */}
-      {/* <Obstacle
-        isInteractive
-        image={obstacleUrls.smithShop}
-        style={{
-          top: '50vh',
-          left: '20vw',
-          scale: '5'
-        }}
-      /> */}
       <InventoryDialog />
       <StatsDisplay />
     </>

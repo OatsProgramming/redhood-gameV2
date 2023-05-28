@@ -82,3 +82,9 @@ type CharStatsStore = {
     updateCoins: (toBeAdded: number) => void,
     updateDebuff: (debuff: string, toBeAdded?: true) => void,
 }
+
+type TutorialVid = {
+    url: string,
+    name: string,
+    description: string
+}
