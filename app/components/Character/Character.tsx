@@ -6,7 +6,7 @@ import useCharMove from '@/lib/zustand/charMoveStore'
 
 export default function Character() {
   const divRef = useRef<HTMLDivElement>(null)
-  const { character, move, animation, moveByKey, toStand, moveByPointer, setAnimation, setCharacter, setCharPos } = useCharMove()
+  const { character, move, animation, moveByKey, toStand, moveByPointer, setAnimation, setCharacter, setCharPos, removeKeyFromSet } = useCharMove()
   // Init
   useEffect(() => {
     const windowCenter = {
@@ -31,6 +31,10 @@ export default function Character() {
       else moveByPointer(e)
     }
 
+    function handleKeyUp(e: KeyboardEvent) {
+      toStand(e)
+      removeKeyFromSet(e)
+    }
     // Prevent context for mobile on long press
     // function preventContext(e: MouseEvent) {
     //   console.log(e)
@@ -38,12 +42,12 @@ export default function Character() {
     // }
 
     window.addEventListener('keydown', handleMovements)
-    window.addEventListener('keyup', toStand)
+    window.addEventListener('keyup', handleKeyUp)
     document.body.addEventListener('pointerdown', handleMovements)
     // document.body.addEventListener('contextmenu', preventContext)
     return () => {
       window.removeEventListener('keydown', handleMovements)
-      window.removeEventListener('keyup', toStand)
+      window.removeEventListener('keyup', handleKeyUp)
       document.body.removeEventListener('pointerdown', handleMovements)
       // document.body.removeEventListener('contextmenu', preventContext)
     }

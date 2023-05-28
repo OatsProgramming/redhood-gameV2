@@ -19,6 +19,7 @@ type CharMoveAction = {
     setAnimation: (action: AnimNames) => void,
     setCharPos: (pos: Position) => void,
     getCurrentPos: () => Position
+    removeKeyFromSet: (e: KeyboardEvent) => void
 }
 
 type Line = {

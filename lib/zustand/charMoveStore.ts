@@ -4,7 +4,14 @@ import isEqual from 'lodash/isEqual'
 /**
  * For character movement. Move via keyboard or pointer.
  * 
- */
+*/
+
+const keySet = new Set<string>()
+
+function insertLatestKey(toRemove: string, toAdd: string) {
+    if (keySet.has(toRemove)) keySet.delete(toRemove)
+    keySet.add(toAdd)
+}
 
 const useCharMove = create<CharMoveState & CharMoveAction>()((set, get) => ({
     character: null,
@@ -25,9 +32,6 @@ const useCharMove = create<CharMoveState & CharMoveAction>()((set, get) => ({
 
         div.style.setProperty('--duration', '200ms')
 
-        let moveX = 0
-        let moveY = 0
-
         // if goHere() called first, stop that animation
         if (isGoing && firstTimer) {
             clearTimeout(firstTimer)
@@ -40,48 +44,45 @@ const useCharMove = create<CharMoveState & CharMoveAction>()((set, get) => ({
                 secondTimer: null
             })
         }
+
+        switch (e.key) {
+            case 'ArrowLeft':
+            case 'ArrowRight': {
+                const oppositeKey = (e.key === 'ArrowLeft') ? 'ArrowRight' : 'ArrowLeft'
+                insertLatestKey(oppositeKey, e.key)
+                div.style.transform = `scaleX(${(e.key === 'ArrowLeft') ? -1 : 1})`
+                break;
+            }
+            case 'ArrowUp':
+            case 'ArrowDown': {
+                const oppositeKey = (e.key === 'ArrowUp') ? 'ArrowDown' : 'ArrowUp'
+                insertLatestKey(oppositeKey, e.key)
+                break;
+            }
+        }
+
+        let moveX = (keySet.has('ArrowLeft')) ? -5 : (keySet.has('ArrowRight')) ? 5 : 0;
+        let moveY = (keySet.has('ArrowUp')) ? -5 : (keySet.has('ArrowDown')) ? 5 : 0;
+
         // Determine the speed
         if (e.key.includes('Arrow')) {
             if (e.shiftKey) {
                 // Prevent shift highlighting
                 e.preventDefault()
                 animation !== 'run' && set({ animation: 'run' })
-                moveX = moveY = 15
-            } else {
+                moveX *= 3
+                moveY *= 3
+            }
+            else {
                 animation !== 'walk' && set({ animation: 'walk' })
-                moveX = moveY = 5
+                // moveX = moveY = 5
             }
         } else if (e.code === 'Space') {
             animation !== 'jump' && set({ animation: 'jump' })
         }
 
-        // Determine the direction
-        switch (e.key) {
-            // Turn off moveY for x-axis only direction
-            case 'ArrowLeft': {
-                moveY *= 0
-                // Alt moveX direction
-                moveX *= -1
-                div.style.transform = 'scaleX(-1)'
-                break;
-            }
-            case 'ArrowRight': {
-                moveY *= 0
-                div.style.transform = 'scaleX(1)'
-                break;
-            }
-            // Turn off moveX for y-axis only direction
-            case 'ArrowUp': {
-                moveX *= 0
-                // Alt moveY direction
-                moveY *= -1
-                break;
-            }
-            case 'ArrowDown': {
-                moveX *= 0
-                break;
-            }
-        }
+
+
         set(state => {
             const prev = state.move
             let x = prev.x + moveX
@@ -179,7 +180,8 @@ const useCharMove = create<CharMoveState & CharMoveAction>()((set, get) => ({
             x: parseInt(computedChar.left),
             y: parseInt(computedChar.top)
         })
-    }
+    },
+    removeKeyFromSet: (e: KeyboardEvent) => keySet.has(e.key) && keySet.delete(e.key)
 }))
 
 export default useCharMove
