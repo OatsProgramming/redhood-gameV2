@@ -26,7 +26,7 @@ const InventoryDialog = lazy(() =>
 export default function App() {
   return (
     <>
-      {/* <InteractBtns /> */}
+      <InteractBtns />
       <Character />
       <Obstacle
         isInteractive

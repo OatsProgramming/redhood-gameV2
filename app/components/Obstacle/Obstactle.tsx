@@ -1,21 +1,20 @@
 'use client'
 
 import { CSSProperties, lazy, memo, useEffect, useRef, useState } from "react"
-import type { LottieRefCurrentProps } from "lottie-react";
 import styles from './obstacle.module.css'
-import textBubble from '@/assets/textBubble.json'
 import charLocator from "@/lib/util/charLocator";
 import keyCollision from "@/lib/util/keyCollision";
 import pointerCollision from "@/lib/util/pointerCollision";
 import useCharMove from "@/lib/zustand/charMoveStore";
+import { AnimatePresence, LazyMotion, m } from 'framer-motion'
+import popinVariants from "@/lib/framer/popinVariants";
 
 const ItemsDialog = lazy(() =>
     import('../Dialog/ItemsDialog/ItemsDialog')
 )
 
-const Lottie = lazy(() =>
-    import('lottie-react')
-)
+const loadFeatures = () => 
+    import('@/lib/framer/domAnimation').then(mod => mod.default)
 
 const Obstacle = memo(function ({ image, style, items, isInteractive, hitBoxStyle }: {
     image: string,
@@ -35,14 +34,10 @@ const Obstacle = memo(function ({ image, style, items, isInteractive, hitBoxStyl
 
     const obsRef = useRef<HTMLDivElement>(null)
     const obsImgRef = useRef<HTMLImageElement>(null)
-    const lottieRef = useRef<LottieRefCurrentProps>(null)
-
+    const bubbleRef = useRef<HTMLImageElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
 
     const [isCharNear, setIsCharNear] = useState(false)
-    // Can't directly use .style for some reason (readonly)
-    const [lottieClass, setLottieClass] = useState<'textBubble' | 'none'>('none')
-
 
     // For collision
     useEffect(() => {
@@ -84,10 +79,9 @@ const Obstacle = memo(function ({ image, style, items, isInteractive, hitBoxStyl
         const charRect = char.getBoundingClientRect()
 
         // For 3D effect
-        // Behind char (charZIndex === 1)
         if (charRect.bottom > obsRect.bottom) container.style.zIndex = '0'
         // In front of char
-        else  container.style.zIndex = '2'
+        else container.style.zIndex = '2'
 
         // Any further exec not necessary if cant interact with obstacle
         if (!isInteractive) return
@@ -132,53 +126,57 @@ const Obstacle = memo(function ({ image, style, items, isInteractive, hitBoxStyl
             !isCharNear && setIsCharNear(true)
         } else {
             isCharNear && setIsCharNear(false)
-        }
+        }    
 
     }, [charStore.character, charStore.isGoing, charStore.move])
 
-    // Text bubble animation & modal
+    // Cant get the position relative to img. Set it with js
     useEffect(() => {
-        const lottie = lottieRef.current
-        if (!lottie || !isInteractive) return
+        const img = obsImgRef.current
+        const bubble = bubbleRef.current
+        if (!img || !bubble) return
 
-        if (isCharNear) {
-            setLottieClass('textBubble')
-            lottie.setDirection(1)
-            lottie.playSegments([0, 22], true)
-        } else {
-            lottie.setDirection(-1)
-            lottie.goToAndPlay(22, true)
-        }
+        const imgStyle = getComputedStyle(img)
+        bubble.style.bottom = parseInt(imgStyle.height) + 'px'
 
-    }, [isCharNear])
+    }, [bubbleRef.current])
 
     return (
         <div className={styles['container']} ref={containerRef} style={style}>
-            <div className={styles['hitBox']} ref={obsRef} style={hitBoxStyle}/>
+            <div className={styles['hitBox']} ref={obsRef} style={hitBoxStyle} />
             {items && (
                 <ItemsDialog
                     items={items}
                     isCharNear={isCharNear}
                 />
             )}
-            <div className={styles['shadow']}>
+            <div className={styles['shadow']} >
                 <img
+                    src={image}
                     ref={obsImgRef}
                     className={styles['obstacle']}
-                    src={image}
                 />
                 {isInteractive && (
-                <Lottie
-                    className={styles[lottieClass]}
-                    lottieRef={lottieRef}
-                    animationData={textBubble}
-                    loop={false}
-                    // Prevent animation on initial load
-                    onDOMLoaded={() => lottieRef.current?.stop()}
-                    // Ensures that the animation gets to play then safely remove the element
-                    onComplete={() => !isCharNear && setLottieClass('none')}
-                />
-            )}
+                    <LazyMotion features={loadFeatures}>
+                        <AnimatePresence initial={false}>
+                        {isCharNear && (
+                            <m.div
+                                className={styles['textBubble']}
+                                ref={bubbleRef}
+                                variants={popinVariants}
+                                initial='initial'
+                                animate='animate'
+                                exit='exit'
+                                transition={{ duration: 1 }}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="blanchedAlmond" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                </svg>
+                            </m.div>
+                        )}
+                    </AnimatePresence>
+                    </LazyMotion>
+                )}
             </div>
         </div>
     )
