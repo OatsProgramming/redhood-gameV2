@@ -1,7 +1,7 @@
 /* Don't mess with width or height: treat all objects present in window as paper cutouts */
 /* Change via scale */
 .container {
-    position: fixed;
+    position: absolute;
     width: 100px;
     aspect-ratio: 10 / 1;
     display: grid;
