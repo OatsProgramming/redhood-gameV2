@@ -25,3 +25,15 @@
 
 [Markvelyx](https://markvelyx.itch.io/)
 - Random Pixelated Stall Assets [🔗](https://markvelyx.itch.io/random-stall-assets)
+
+
+### About Mobile
+
+Though responsive in design, game play for mobile is yet to be supported. It is recommended to play on at least a tablet or pc.
+
+Once fully supported, it'll be stated here.
+
+
+### Thank You!
+
+Thanks for checking out my mini game! And to those in the itch.io community, thank you for creating free animation sheets and tiles to help indie creators like me.
