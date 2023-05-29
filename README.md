@@ -26,6 +26,9 @@
 [Markvelyx](https://markvelyx.itch.io/)
 - Random Pixelated Stall Assets [🔗](https://markvelyx.itch.io/random-stall-assets)
 
+### About Pixel Planet (AKA Redhood Game V2)
+
+There are still other map layouts to add and enemy sprites to implement into the game. For now, please enjoy "shopping" around in the Old Town Market!
 
 ### About Mobile
 
