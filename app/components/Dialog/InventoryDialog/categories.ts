@@ -9,7 +9,7 @@ const categories: CategoryImg[] = [
     },
     {
         category: 'quest',
-        imgUrl: 'https://i.imgur.com/11lpVgs.png'
+        imgUrl: 'https://i.imgur.com/4tNHzsd.png'
     },
     {
         category: 'material',
