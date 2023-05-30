@@ -45,12 +45,12 @@ const Obstacle = memo(function ({ image, style, items, isInteractive, hitBoxStyl
             if (!obsRef.current || !obsImgRef.current) return
 
             // Only care about character's movement
-            else if (e.target !== document.body) return
+            // else if (e.target !== document.body) return
             else if (e instanceof KeyboardEvent && !e.key.includes('Arrow')) return
 
             // Check if user is using taps for movement
             else if (e instanceof PointerEvent) {
-                pointerCollision(charStore, e, obsImgRef.current)
+                pointerCollision(charStore, e, obsRef.current)
             }
 
             // Or with the keys

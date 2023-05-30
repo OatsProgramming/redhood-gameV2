@@ -13,18 +13,30 @@ import doIntersect from "./doIntersect"
  */
 
 
-export default function pointerCollision(charStore: CharMoveState & CharMoveAction, e: PointerEvent, obsImg: HTMLImageElement) {
-    const { character: char, setCharPos, getCurrentPos } = charStore
+export default function pointerCollision(charStore: CharMoveState & CharMoveAction, e: PointerEvent, obsImg: HTMLElement) {
+    const { character: char, setCharPos } = charStore
     if (!char || !obsImg) return
 
     const obsImgRect = obsImg.getBoundingClientRect()
     const charRect = char.getBoundingClientRect()
     const { sideX, sideY } = charLocator(charRect, obsImgRect)
+    const computedChar = getComputedStyle(char)
+    const charScale = isFinite(Number(computedChar.scale)) ? 
+        Number(computedChar.scale) : 1
 
     let lineX: Line | undefined;
     let lineY: Line | undefined;
+    const midX = charRect.width / (2 * charScale)
     const charLine: Line = {
-        ptOne: getCurrentPos(),
+        ptOne: {
+            x: charRect.left + midX,
+            // Determine which side of y will most likely collide
+            y: charRect[(
+                sideY === 'top' || sideY === undefined ? 
+                    'bottom' :
+                    'top'
+            )]
+        },
         ptTwo: {
             x: e.clientX,
             y: e.clientY
@@ -60,27 +72,37 @@ export default function pointerCollision(charStore: CharMoveState & CharMoveActi
             }
         }
     }
-    
+
     // Looking out for an intersection for two sides of the obstacle:
     // If user is at a given distance, only has two sides of the obstacle when choosing
     const intersectionX = doIntersect(charLine, lineX)
     const intersectionY = doIntersect(charLine, lineY)
 
+    const buffer = 10
+    // This is to help ensure that the char doesnt go in the hitBox
+    // Calculated by getting the amnt of char that gets in the hitBox then removing it
+    const padding = (1 - charScale)
+    const paddingX = (padding * charRect.width)
+    const paddingY = (charRect.height + (padding * charRect.height))
+
     if (intersectionX.point) {
-        let y = (charRect.height / 100)
-        if (sideY === 'top') y = -(charRect.height) - 10
-
         setCharPos({
-            ...intersectionX.point,
-            y: intersectionX.point.y + y
-        })
-    } else if (intersectionY.point) {
-        let x = (charRect.width / 100)
-        if (sideX === 'left') x *= -charRect.width - 30
-
+            x: intersectionX.point.x - (midX + paddingX),
+            y: intersectionX.point.y - (paddingY + (
+                    sideY === 'top' ? 
+                        buffer : 
+                        -buffer
+                ))
+            })
+        }
+    else if (intersectionY.point) {
         setCharPos({
-            ...intersectionY.point,
-            x: intersectionY.point.x + x
+            x: intersectionY.point.x - (midX + (
+                sideX === 'left' ? 
+                    paddingX + buffer : 
+                    -paddingX - buffer
+            )),
+            y: intersectionY.point.y - paddingY
         })
     }
 }

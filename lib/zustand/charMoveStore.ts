@@ -75,7 +75,6 @@ const useCharMove = create<CharMoveState & CharMoveAction>()((set, get) => ({
             }
             else {
                 animation !== 'walk' && set({ animation: 'walk' })
-                // moveX = moveY = 5
             }
         } else if (e.code === 'Space') {
             animation !== 'jump' && set({ animation: 'jump' })
@@ -107,7 +106,8 @@ const useCharMove = create<CharMoveState & CharMoveAction>()((set, get) => ({
     },
     moveByPointer: (e) => {
         // Prevent char from traveling if screen pop up, obstacle, etc.
-        if (e.target !== document.body) return
+        // console.log(e.target)
+        // if (e.target !== document.body) return
 
         const isGoing = get().isGoing
         const firstTimer = get().firstTimer

@@ -28,7 +28,7 @@ const InventoryDialog = lazy(() =>
 export default function App() {
   return (
     <>
-      <InteractBtns />
+      {/* <InteractBtns /> */}
       <Character />
       <section className={styles['mapLayout']}>
         <div className={styles['greenery']}>
@@ -37,7 +37,7 @@ export default function App() {
             style={{
               top: '',
               left: '',
-              scale: '4',
+              scale: '3',
             }}
             hitBoxStyle={{
               width: 30,

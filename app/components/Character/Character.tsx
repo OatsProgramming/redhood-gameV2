@@ -22,9 +22,12 @@ export default function Character() {
     // Set initial character location at the middle
     function handleMovements(e: PointerEvent | KeyboardEvent) {
       // Check if character is connected (Related to if dialog.open)
+      // const el = e.target as HTMLElement
+      // console.log(el.tagName)
+
       if (
-        !character ||
-        e instanceof PointerEvent && e.target !== document.body
+        !character
+        // e instanceof PointerEvent && el.tagName !== 'DIV'
       ) return
 
       if (e instanceof KeyboardEvent) moveByKey(e)
@@ -52,6 +55,7 @@ export default function Character() {
       // document.body.removeEventListener('contextmenu', preventContext)
     }
   }, [character])
+
 
   return (
     <div className={styles['charBox']}
