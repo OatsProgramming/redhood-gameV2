@@ -12,7 +12,10 @@ const tutorialVids: TutorialVid[] = [
     {
         url: 'https://i.imgur.com/B3j0Y7H.mp4',
         name: 'Exploring the World Part 2',
-        description: `You can also venture the world by just clicking / tapping on the screen.`
+        description: `You can also venture the world by just clicking / tapping on the screen.
+        
+(Please note: not fully supported yet for touch-base game play. It is recommended to use a keyboard.)
+        `
     },
     {
         url: 'https://i.imgur.com/eCCWOxA.mp4',

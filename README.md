@@ -32,7 +32,7 @@ There are still other map layouts to add and enemy sprites to implement into the
 
 ### About Mobile
 
-Though responsive in design, game play for mobile is yet to be supported. It is recommended to play on at least a tablet or pc.
+Though responsive in design, game play for mobile is yet to be fully supported. It is recommended to play on at least a tablet or pc.
 
 Once fully supported, it'll be stated here.
 

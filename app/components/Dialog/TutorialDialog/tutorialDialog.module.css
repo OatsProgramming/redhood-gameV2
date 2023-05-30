@@ -43,6 +43,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    white-space: pre-wrap;
 }
 
 .slide div:first-child {
